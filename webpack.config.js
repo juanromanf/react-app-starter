@@ -1,25 +1,26 @@
 const path = require('path');
+const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   // Tell webpack to begin building its
   // dependency graph from this file.
-  entry: path.join(__dirname, 'src', 'components', 'App.js'),
+  entry: [
+    'react-hot-loader/patch',
+    path.join(__dirname, 'src', 'components', 'App.js')
+  ],
   // And to place the output in the `build` directory
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js'
-  },  
+  },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        /* We'll leave npm packages as is and not
-           parse them with Babel since most of them
-           are already pre-transpiled anyway. */
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: ['babel-loader']
       },
       {
         test: /\.scss$/,
@@ -35,16 +36,23 @@ module.exports = {
           }
         }]
       },
-      { 
+      {
         test: /\.(eot|svg|ttf|woff2?|otf)$/,
         use: 'file-loader'
       }
     ]
   },
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
+  },
   devServer: {
-    port: 9000
+    port: 9000,
+    contentBase: path.join(__dirname, 'build'),
+    hot: true,
+    open: true
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new ProgressBarPlugin({
       format: 'Build [:bar] :percent (:elapsed seconds)',
       clear: false,
