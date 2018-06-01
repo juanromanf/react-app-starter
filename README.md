@@ -7,6 +7,7 @@
 * Webpack 4
 * Babel
 * Hot Module Replacement
+* ESLint code quality (airbnb style guide)
 
 ## Installation
 
