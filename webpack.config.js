@@ -8,7 +8,7 @@ module.exports = {
   // dependency graph from this file.
   entry: [
     'react-hot-loader/patch',
-    path.join(__dirname, 'src', 'components', 'App.js')
+    path.join(__dirname, 'src', 'components', 'App.jsx')
   ],
   // And to place the output in the `build` directory
   output: {
@@ -23,7 +23,7 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test: /\.scss$/,
+        test: /\.(s)?css$/,
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
@@ -55,11 +55,11 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new ProgressBarPlugin({
       format: 'Build [:bar] :percent (:elapsed seconds)',
-      clear: false,
+      clear: false
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public', 'index.html'),
       favicon: path.join(__dirname, 'public', 'favicon.ico')
     })
   ]
-}
+};
